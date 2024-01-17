@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+    <title>CricketBuZZ</title>
+    <link rel="icon" type="image/x-icon" href="../static/images/cricket-ico.ico">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #79E0EE;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background-color: #D9EDBF;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .navbar a:hover {
+            text-decoration: none;
+        }
+
+        /* Footer Styles */
+        .footer {
+            bottom: 0px;
+            background-color: #D9EDBF;
+            color: #161A30;
+            padding: 15px 0;
+            text-align: center;
+            width: 100%;
+            z-index: 1;
+        }
+
+        .footer p {
+            margin-bottom: 0;
+        }
+
+        /* Sections */
+        section {
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .main-division {
+            display: flex;
+            background-color: #AAD9BB;
+        }
+
+        .left-section,
+        .right-section {
+            width: 20%;
+            background-color: #f57b7b;
+            padding: 20px;
+            position: sticky;
+            top: 0;
+            height: 125vh;
+            overflow-y: hidden;
+        }
+
+        .left-section {
+            margin: 50px 0px 50px 50px;
+        }
+
+        .right-section {
+            margin: 50px 50px 50px 0px;
+        }
+
+        .center-section {
+            width: 60%;
+            padding: 20px;
+            overflow-y: auto;
+            position: sticky;
+            margin: 50px 10px 50px 10px;
+            background-color: #ffffff;
+        }
+
+        /* Card Styles */
+        .center-section img {
+            height: 200px;
+            width: 100%;
+            object-fit: contain;
+        }
+
+        .left-section img {
+            height: 100px;
+            width: 100%;
+            object-fit: contain;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .card {
+            width: 300px;
+            margin: 10px;
+            background-color: #ECF4D6;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-dark">
+        <a class="navbar-brand">
+            <img src="../static/images/cricket.png" alt="Icon" style="margin-left: 15px; width: 32px; height: 32px;">
+            CricketBuZZ
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.html">Home</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#news">News</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="https://github.com/Abhay-1552" target="_blank">About Me</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    
+    <div class="main-division">
+        <section class="left-section">
+            <div>
+                <h2>Left Section</h2>
+                    <!-- Add content for the left section -->
+            </div>
+        </section>
+
+        <section class="center-section" id="news">
+            <div>
+                <h3>News</h3>
+                <div class="container">
+                    {% for news_item in news %}
+                    <div class="card">
+                        <p class="card-text" style="font-size: 12px; align-self: center; padding-top: 5px;">{{
+                            news_item.Context }}</p>
+                        <img src="{{ news_item.Image }}" class="card-img-top" alt="Image">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ news_item.Title }}</h5>
+                            <p class="card-text">{{ news_item.Intro }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+        <section class="right-section">
+            <h3>Feature Videos</h3>
+
+            <div class="container">
+                {% for item in video %}
+                <div>
+                    <a href="https://www.cricbuzz.com{{ item.Url }}" target="_blank">
+                        <img src="{{ item.Image }}" class="card-img-top" alt="Image" title="{{ item.Title }}">
+                    </a>
+                    <div style="padding-bottom: 10px; align-items: baseline; font: 1em sans-serif;">
+                        <h6 class="card-title">{{ item.Title }}</h6>
+                        <p class="card-text">{{ item.Time }}</p>
+                    </div>
+
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+    
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2023 Anime World. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>

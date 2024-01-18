@@ -23,7 +23,7 @@ def exception(e):
     print(error)
 
 
-class News:
+class Score:
     def __init__(self):
         self.url: str = "https://www.espncricinfo.com/live-cricket-score"
         self.header: dict = {
@@ -54,12 +54,20 @@ class News:
                                      {'class': 'ds-text-tight-xs ds-truncate ds-text-typo-mid3'}).get_text() \
                     if _info else 'N/A'
 
+                _split = _detail.split(',')
+
+                _tour = _split[-1]
+                _date = f"{_split[-3]},{_split[-2]}"
+                _info = f"{_split[0]},{_split[1]}"
+
                 _status = content.find('p', {'class': 'ds-text-tight-s ds-font-regular ds-truncate ds-text-typo'})
                 _match_status = _status.find('span').get_text() if _status else 'N/A'
 
                 data: dict = {
                     "Time": _time,
-                    "Details": _detail,
+                    "Details": _info,
+                    "Tour": _tour,
+                    "Date": _date,
                     "Status": _match_status
                 }
 
@@ -104,5 +112,5 @@ class News:
 
 
 if __name__ == '__main__':
-    app = News()
+    app = Score()
     print(app.cricket_score())

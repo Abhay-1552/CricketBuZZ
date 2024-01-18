@@ -59,7 +59,7 @@
         }
 
         .right-section {
-            width: 35%;
+            width: 20%;
             background-color: #f57b7b;
             padding: 20px;
             position: sticky;
@@ -73,12 +73,21 @@
         }
 
         .center-section {
-            width: 65%;
+            width: 80%;
             padding: 20px;
             overflow-y: auto;
             position: sticky;
             margin: 50px 10px 50px 50px;
             background-color: #ffffff;
+        }
+
+        /* Score card Styles */
+
+        .score {
+            font-size: 12px; 
+            align-self: center; 
+            padding-top: 4px; 
+            margin: 0;
         }
 
         /* Card Styles */
@@ -147,8 +156,23 @@
 
 
     <div class="main-division">
-        <section class="center-section" id="news">
+        <section class="center-section">
             <div>
+                <h3>ScoreCard</h3>
+                <div class="container">
+                    {% for item in details %}
+                    <div class="card">
+                        <p class="card-text score">{{ item.Time }} | {{ item.Details }}</p>
+                        <p class="card-text score"><b> {{ item.Tour }} </b></p>
+                        <div class="card-body">
+                            <p class="card-text">{{ item.Status }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <div id="news">
                 <h3>News</h3>
                 <div class="container">
                     {% for news_item in news %}
@@ -167,6 +191,9 @@
         </section>
 
         <section class="right-section">
+            <div style="align-items: center;">
+                <h3>Feature Videos</h3>
+            </div>
             <div class="cb-col">
                 {% for item in video %}
                 <a href="https://www.cricbuzz.com{{ item.Url }}" target="_blank">
@@ -174,13 +201,11 @@
                         <img src="{{ item.Image }}" class="card-img-top" alt="Image" title="{{ item.Title }}">
                     </div>
                     <h4 class="title">{{ item.Title }}</h4>
-                    <p>{{ item.Time }}</p>
                 </a>
                 {% endfor %}
             </div>
         </section>
     </div>
-
 
     <!-- Footer -->
     <footer class="footer">

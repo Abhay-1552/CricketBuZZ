@@ -1,0 +1,156 @@
+body {
+    font-family: Arial, sans-serif;
+
+    overflow-y: auto;
+    scrollbar-color: transparent transparent;
+    scrollbar-width: thin;
+
+    height: 100%;
+}
+
+/* Navbar Styles */
+.navbar {
+    background-color: #D9EDBF;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.navbar a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.navbar a:hover {
+    text-decoration: none;
+}
+
+/* Footer Styles */
+.footer {
+    position: relative;
+    bottom: 0px;
+    background-color: #D9EDBF;
+    color: #161A30;
+    padding: 15px 0;
+    text-align: center;
+    width: 100%;
+    z-index: 1;
+}
+
+.footer p {
+    margin-bottom: 0;
+}
+
+/* Sections */
+section {
+    padding: 20px;
+    border-radius: 10px;
+
+    overflow-y: auto;
+    scrollbar-color: transparent transparent;
+    scrollbar-width: thin;
+
+    margin: 50px 50px 50px 0px;
+
+    height: 150vh;
+
+}
+
+.main-division {
+    display: flex;
+    background-color: #AAD9BB;
+    height: 100%;
+}
+
+.right-section {
+    width: 20%;
+    background-color: #f57b7b;
+    padding: 20px;
+    position: sticky;
+    top: 0;
+}
+
+.center-section {
+    width: 80%;
+    padding: 20px;
+    position: sticky;
+    margin: 50px 10px 50px 50px;
+    background-color: #ffffff;
+}
+
+/* Score card Styles */
+.score {
+    font-size: 12px;
+    align-self: center;
+    padding-top: 4px;
+    margin: 0;
+}
+
+/* Card Styles */
+.center-section img {
+    height: 200px;
+    width: 100%;
+    object-fit: contain;
+}
+
+.right-section img {
+    width: 100%;
+    border-radius: 4px;
+    height: 164px;
+    object-fit: contain;
+}
+
+.right-section a {
+    text-decoration: none;
+    color: #161A30;
+}
+
+.title {
+    margin: 10px 0;
+    font-size: 16px;
+    width: 100%;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card {
+    width: 300px;
+    margin: 10px;
+    background-color: #ECF4D6;
+}
+
+.cards-container {
+    max-height: 260px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.card {
+    margin: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+}
+
+#showMoreBtn,
+#showLessBtn {
+    display: block;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+/* Transparent scrollbar styling for WebKit browsers */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0);
+    border: 1px solid rgba(0, 0, 0, 0);
+}
+
+::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0);
+}

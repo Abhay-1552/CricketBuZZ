@@ -10,123 +10,7 @@
     <title>CricketBuZZ</title>
     <link rel="icon" type="image/x-icon" href="../static/images/cricket-ico.ico">
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            background-color: #79E0EE;
-        }
-
-        /* Navbar Styles */
-        .navbar {
-            background-color: #D9EDBF;
-            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .navbar a {
-            color: #ffffff;
-            text-decoration: none;
-        }
-
-        .navbar a:hover {
-            text-decoration: none;
-        }
-
-        /* Footer Styles */
-        .footer {
-            bottom: 0px;
-            background-color: #D9EDBF;
-            color: #161A30;
-            padding: 15px 0;
-            text-align: center;
-            width: 100%;
-            z-index: 1;
-        }
-
-        .footer p {
-            margin-bottom: 0;
-        }
-
-        /* Sections */
-        section {
-            padding: 20px;
-            border-radius: 10px;
-        }
-
-        .main-division {
-            display: flex;
-            background-color: #AAD9BB;
-        }
-
-        .right-section {
-            width: 20%;
-            background-color: #f57b7b;
-            padding: 20px;
-            position: sticky;
-            top: 0;
-            height: 125vh;
-            overflow-y: hidden;
-        }
-
-        .right-section {
-            margin: 50px 50px 50px 0px;
-        }
-
-        .center-section {
-            width: 80%;
-            padding: 20px;
-            overflow-y: auto;
-            position: sticky;
-            margin: 50px 10px 50px 50px;
-            background-color: #ffffff;
-        }
-
-        /* Score card Styles */
-
-        .score {
-            font-size: 12px; 
-            align-self: center; 
-            padding-top: 4px; 
-            margin: 0;
-        }
-
-        /* Card Styles */
-        .center-section img {
-            height: 200px;
-            width: 100%;
-            object-fit: contain;
-        }
-
-        .right-section img {
-            width: 100%;
-            border-radius: 4px;
-            height: 164px;
-            object-fit: contain;
-        }
-
-        .right-section a {
-            text-decoration: none;
-            color: #161A30;
-        }
-
-        .title {
-            margin: 10px 0;
-            font-size: 16px;
-            width: 100%;
-        }
-
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .card {
-            width: 300px;
-            margin: 10px;
-            background-color: #ECF4D6;
-        }
-    </style>
+    <link rel="stylesheet" href="../static/css/style.css">
 </head>
 
 <body>
@@ -148,6 +32,9 @@
                     <a class="nav-link" href="#news">News</a>
                 </li>
                 <li class="nav-item active">
+                    <a class="nav-link" href="#score">Score</a>
+                </li>
+                <li class="nav-item active">
                     <a class="nav-link" href="https://github.com/Abhay-1552" target="_blank">About Me</a>
                 </li>
             </ul>
@@ -157,9 +44,9 @@
 
     <div class="main-division">
         <section class="center-section">
-            <div>
+            <div id="score">
                 <h3>ScoreCard</h3>
-                <div class="container">
+                <div class="cards-container container" id="cardsContainer">
                     {% for item in details %}
                     <div class="card">
                         <p class="card-text score">{{ item.Time }} | {{ item.Details }}</p>
@@ -170,8 +57,14 @@
                     </div>
                     {% endfor %}
                 </div>
+                <div style="align-items: center;">
+                    <button id="showMoreBtn" onclick="showMoreCards()">Show More</button>
+                    <button id="showLessBtn" onclick="showLessCards()" style="display: none;">Show Less</button>
+                </div>
             </div>
-            
+
+            <hr style="margin: 25px 0px 25px 0px;">
+
             <div id="news">
                 <h3>News</h3>
                 <div class="container">
@@ -200,8 +93,11 @@
                     <div class="position">
                         <img src="{{ item.Image }}" class="card-img-top" alt="Image" title="{{ item.Title }}">
                     </div>
-                    <h4 class="title">{{ item.Title }}</h4>
+                    <h5 class="title" style="font-weight: bold; margin-top: 0px;">{{ item.Title }}</h5>
+                    <p style="font-size: 14px;">{{ item.Time }} </p>
                 </a>
+
+                <hr style="margin: 15px 0px 5px 0px;">
                 {% endfor %}
             </div>
         </section>
@@ -216,6 +112,22 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"></script>
+
+    <script>
+        function showMoreCards() {
+            var cardsContainer = document.getElementById('cardsContainer');
+            cardsContainer.style.maxHeight = 'none'; // Set max-height to none to show all cards
+            document.getElementById('showMoreBtn').style.display = 'none'; // Hide "Show More" button
+            document.getElementById('showLessBtn').style.display = 'block'; // Show "Show Less" button
+        }
+
+        function showLessCards() {
+            var cardsContainer = document.getElementById('cardsContainer');
+            cardsContainer.style.maxHeight = '260px'; // Set max-height to initial value
+            document.getElementById('showMoreBtn').style.display = 'block'; // Show "Show More" button
+            document.getElementById('showLessBtn').style.display = 'none'; // Hide "Show Less" button
+        }
+    </script>
 </body>
 
 </html>

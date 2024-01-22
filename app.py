@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, render_template
 from scraping_data import News
 from scraping_score import Score
 
@@ -14,8 +14,11 @@ def root():
     _news_data = _news.cricket_news()
     _news_video = _news.feature_videos()
     _match_details = _score.cricket_detail()
+    _team_a, _team_b = _score.cricket_score()
 
-    return render_template('index.html', news=_news_data, video=_news_video, details=_match_details)
+    combined_detail = [{'details': detail, 'team_a': a, 'team_b': b} for detail, a, b in zip(_match_details, _team_a, _team_b)]
+
+    return render_template('index.html', news=_news_data, video=_news_video, teams=combined_detail)
 
 
 if __name__ == "__main__":

@@ -41,25 +41,43 @@
         </div>
     </nav>
 
-
     <div class="main-division">
         <section class="center-section">
-            <div id="score">
+            <div id="score" class="container">
                 <h3>ScoreCard</h3>
-                <div class="cards-container container" id="cardsContainer">
-                    {% for item in details %}
-                    <div class="card">
-                        <p class="card-text score">{{ item.Time }} | {{ item.Details }}</p>
-                        <p class="card-text score"><b> {{ item.Tour }} </b></p>
+                <div class="cards-container row" id="cardsContainer">
+                    {% for item in teams %}
+                    <div class="card col-md-6">
                         <div class="card-body">
-                            <p class="card-text">{{ item.Status }}</p>
+                            <p class="card-text score">{{ item.details.Time }} | {{ item.details.Details }}</p>
+                            <p class="card-text score" style="padding-bottom: 4px;"><b>{{ item.details.Tour }}</b></p>
+                            
+                            <div class="row team">
+                                <div class="col-md-6">
+                                    <p class="card-text name">{{ item.team_a.Team }}</p>
+                                    <span class="card-text scorecard over">{{ item.team_a.Overs }}
+                                        <strong>{{ item.team_a.Runs }}</strong>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row team">
+                                <div class="col-md-6">
+                                    <p class="card-text name">{{ item.team_b.Team }}</p>
+                                    <span class="card-text scorecard over">{{ item.team_b.Overs }}
+                                        <strong>{{ item.team_b.Runs }}</strong>
+                                    </span>
+                                </div>
+                            
+                            </div>
+                            <p class="card-text" style="font-size: 12px; font-weight: 600; color: #280274; text-align: center;">{{ item.details.Status }}</p>
                         </div>
                     </div>
                     {% endfor %}
                 </div>
-                <div style="align-items: center;">
-                    <button id="showMoreBtn" onclick="showMoreCards()">Show More</button>
-                    <button id="showLessBtn" onclick="showLessCards()" style="display: none;">Show Less</button>
+                <div class="row justify-content-center">
+                    <button id="showMoreBtn" onclick="showMoreCards()" class="btn btn-primary">Show More</button>
+                    <button id="showLessBtn" onclick="showLessCards()" style="display: none;"
+                        class="btn btn-secondary">Show Less</button>
                 </div>
             </div>
 
@@ -70,10 +88,10 @@
                 <div class="container">
                     {% for news_item in news %}
                     <div class="card">
-                        <p class="card-text" style="font-size: 12px; align-self: center; padding-top: 5px;">{{
-                            news_item.Context }}</p>
                         <img src="{{ news_item.Image }}" class="card-img-top" alt="Image">
                         <div class="card-body">
+                            <p class="card-text" style="font-size: 12px; align-self: center; padding-top: 5px;">{{
+                                news_item.Context }}</p>
                             <h5 class="card-title">{{ news_item.Title }}</h5>
                             <p class="card-text">{{ news_item.Intro }}</p>
                         </div>
@@ -96,7 +114,6 @@
                     <h5 class="title" style="font-weight: bold; margin-top: 0px;">{{ item.Title }}</h5>
                     <p style="font-size: 14px;">{{ item.Time }} </p>
                 </a>
-
                 <hr style="margin: 15px 0px 5px 0px;">
                 {% endfor %}
             </div>
@@ -116,16 +133,16 @@
     <script>
         function showMoreCards() {
             var cardsContainer = document.getElementById('cardsContainer');
-            cardsContainer.style.maxHeight = 'none'; // Set max-height to none to show all cards
-            document.getElementById('showMoreBtn').style.display = 'none'; // Hide "Show More" button
-            document.getElementById('showLessBtn').style.display = 'block'; // Show "Show Less" button
+            cardsContainer.style.maxHeight = 'none';
+            document.getElementById('showMoreBtn').style.display = 'none';
+            document.getElementById('showLessBtn').style.display = 'block';
         }
 
         function showLessCards() {
             var cardsContainer = document.getElementById('cardsContainer');
-            cardsContainer.style.maxHeight = '285px'; // Set max-height to initial value
-            document.getElementById('showMoreBtn').style.display = 'block'; // Show "Show More" button
-            document.getElementById('showLessBtn').style.display = 'none'; // Hide "Show Less" button
+            cardsContainer.style.maxHeight = '285px';
+            document.getElementById('showMoreBtn').style.display = 'block';
+            document.getElementById('showLessBtn').style.display = 'none';
         }
     </script>
 </body>

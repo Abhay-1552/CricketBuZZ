@@ -2,6 +2,7 @@ import os
 import sys
 import requests
 from bs4 import BeautifulSoup
+from requests_html import HTMLSession
 
 
 def exception(e):
@@ -83,29 +84,34 @@ class Score:
 
             soup = BeautifulSoup(response.content, 'html.parser')
 
-            main_content = soup.find_all('div', {
-                'class': ('ds-border-b ds-border-line ds-w-1/2', 'ds-border-b ds-border-line ds-border-r ds-w-1/2')})
+            team_scores = soup.find_all('div', class_='ci-team-score')
 
-            for score in main_content:
-                _team = score.find('div', {'class': 'ds-flex ds-flex-col ds-mt-2 ds-mb-2'})
+            for team_score in team_scores:
+                team_name = team_score.find('p', class_='ds-font-bold').text.strip() if team_scores else 'N/A'
 
-                _team_content = []
-                for _name in _team:
-                    _team_flag = _name.find('img').get('src')
-                    _team_name = _name.find('p').get_text()
+                flag_image_src = team_score.find('img').get('src') if team_scores else 'N/A'
 
-                    _team_score = _name.find('div', {'class': 'ds-text-compact-s ds-text-typo ds-text-right ds-whitespace-nowrap fadeIn-enter-done'})
-                    _overs = _team_score.find('span').get_text() if _team_score else '0.0'
-                    _runs = _team_score.find('strong').get_text() if _team_score else '0/0'
+                overs = team_score.find('span', class_='ds-text-compact-xs').get_text() \
+                    if team_score.find('span', class_='ds-text-compact-xs') else 'N/A'
 
-                    _team_content.append({
-                        "flag": _team_flag,
-                        "name": _team_name,
-                        "runs": _runs,
-                        "overs": _overs
-                    })
+                strong_tags = team_score.find_all('strong')
 
-                print(_team_content)
+                runs = ''
+                for strong_tag in strong_tags:
+                    run = strong_tag.get_text() if team_score.find('strong') else 'N/A'
+                    runs += run
+
+                self.result.append({
+                    "Team": team_name,
+                    "Flag": flag_image_src,
+                    "Overs": overs,
+                    "Runs": runs
+                })
+
+            team_a: list = self.result[::2]
+            team_b: list = self.result[1::2]
+
+            return team_a, team_b
 
         except Exception as e:
             exception(e)
@@ -113,4 +119,6 @@ class Score:
 
 if __name__ == '__main__':
     app = Score()
-    print(app.cricket_score())
+    a, b = app.cricket_score()
+    print(a)
+    print(b)
